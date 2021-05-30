@@ -1,0 +1,40 @@
+{
+    "spm": {
+        "port": 1,
+        "address": 8
+    },
+    "qmi": {
+        "device": "/dev/ttyUSB2",
+        "baudrate": 115200,
+        "timeout": 1,
+        "init": [
+            "AT+CMEE=0",
+            "AT+QGPSCFG=\"autogps\",1",
+            "AT+QGPSCFG=\"fixfreq\",1",
+            "AT+QGPSCFG=\"gnssconfig\",1",
+            "AT+QGPSCFG=\"outport\",\"usbnmea\"",
+            "AT+QGPSEND",
+            "AT+QGPS=2,30,50,0,1"
+        ]
+    },
+    "stn": {
+        "device": "/dev/serial0",
+        "baudrate": 9600,
+        "timeout": 1
+    },
+    "nmea": {
+        "device": "/dev/ttyUSB1",
+        "baudrate": 115200,
+        "timeout": 1
+    },
+    "pinger": {
+        "hosts": [
+            "8.8.8.8",
+            "10.26.0.1",
+            "10.26.1.1",
+            "10.26.1.2"
+        ],
+        "mean": 60,
+        "online_thresh": 10
+    }
+}
