@@ -38,3 +38,33 @@ def parse_as_dict(sentence, check=True, verbose=False):
         }
 
     return ret
+
+
+def obj_as_dict(obj, check=True, verbose=False):
+    ret = {}
+
+    for f in obj.fields:
+        desc = f[0]
+        attr = f[1]
+        val = getattr(obj, attr)
+
+        if not val and not verbose:
+            continue
+
+        # Workaround because msgpack will not serialize datetime.date, datetime.time and decimal.Decimal
+        if isinstance(val, datetime.date):
+            val = str(val)
+        elif isinstance(val, datetime.time):
+            val = str(val)
+        # TODO: Temp fix to get correct types because pynmea2 does not handle it
+        elif attr.startswith("num_") or attr.endswith("_num") or "_num_" in attr:
+            val = int(val)
+        elif attr.startswith("snr_") or attr.startswith("azimuth_"):
+            val = float(val)
+
+        ret[attr] = val if not verbose else {
+            "description": desc,
+            "value": val
+        }
+
+    return ret

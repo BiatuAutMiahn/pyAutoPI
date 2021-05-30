@@ -104,7 +104,6 @@ EXT_PINS_OUT = {
 
 log = logging.getLogger(__name__)
 
-
 class SPM2Conn(I2CConn):
 
     def read_block(self, register, length):
@@ -187,12 +186,12 @@ class SPM2Conn(I2CConn):
     @retry(stop_max_attempt_number=3, wait_fixed=200)
     def wake_flags(self):
         """
-        Get current wake event flags. 
+        Get current wake event flags.
         """
 
         res = self.read_block(REG_WAKE_FLAGS, 1)
 
-        ret = {k: bool(res[0] & v) for k, v in WAKE_FLAGS.iteritems()}
+        ret = {k: bool(res[0] & v) for k, v in WAKE_FLAGS.items()}
 
         return ret
 
@@ -242,8 +241,8 @@ class SPM2Conn(I2CConn):
 
         res = self.read_block(REG_PINS, 1)
         ret = {
-            "input": {k: bool(res[0] & v) for k, v in PINS_IN.iteritems()},
-            "output": {k: bool(res[0] & v) for k, v in PINS_OUT.iteritems()}
+            "input": {k: bool(res[0] & v) for k, v in PINS_IN.items()},
+            "output": {k: bool(res[0] & v) for k, v in PINS_OUT.items()}
         }
 
         return ret
@@ -294,8 +293,8 @@ class SPM2Conn(I2CConn):
 
         res = self.read_block(REG_EXT_PINS, 1)
         ret = {
-            "input": {k: bool(res[0] & v) for k, v in EXT_PINS_IN.iteritems()},
-            "output": {k: bool(res[0] & v) for k, v in EXT_PINS_OUT.iteritems()}
+            "input": {k: bool(res[0] & v) for k, v in EXT_PINS_IN.items()},
+            "output": {k: bool(res[0] & v) for k, v in EXT_PINS_OUT.items()}
         }
 
         return ret
@@ -330,7 +329,7 @@ class SPM2Conn(I2CConn):
 
         if value != None:
             self.write_block(REG_SLEEP_DURATION, [(value >> i * 8) & 0xFF for i in range(0, 4)])
-        
+
         res = self.read_block(REG_SLEEP_DURATION, 4)
 
         return (res[3] << 24) + (res[2] << 16) + (res[1] << 8) + (res[0] << 0)

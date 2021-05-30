@@ -62,7 +62,7 @@ class OBDConn(object):
 
         # Flag indicating if filters are applied or not
         self.has_filters = False
-    
+
     def setup(self, **settings):
 
         if log.isEnabledFor(logging.DEBUG):
@@ -197,7 +197,7 @@ class OBDConn(object):
     @Decorators.ensure_open
     def supported_protocols(self):
         ret = collections.OrderedDict({"AUTO": {"name": "Autodetect", "interface": "ELM327"}})
-        ret.update({k: {"name": v.NAME, "interface": v.__module__[v.__module__.rfind(".") + 1:].upper()} for k, v in self._obd.supported_protocols().iteritems()})
+        ret.update({k: {"name": v.NAME, "interface": v.__module__[v.__module__.rfind(".") + 1:].upper()} for k, v in self._obd.supported_protocols().items()})
 
         return ret
 
@@ -266,7 +266,7 @@ class OBDConn(object):
     def ensure_runtime_settings(self, settings, filter=False):
 
         # Apply CAN settings in correct order
-        for name, func in self._can_runtime_settings.iteritems():
+        for name, func in self._can_runtime_settings.items():
             if name in settings:
                 func(settings.pop(name) if filter else settings[name])
 
@@ -332,7 +332,7 @@ class OBDConn(object):
 
     @Decorators.ensure_open
     def reset(self, **kwargs):
-        self._obd.reset(**kwargs) 
+        self._obd.reset(**kwargs)
 
     @Decorators.ensure_open
     def change_baudrate(self, value):

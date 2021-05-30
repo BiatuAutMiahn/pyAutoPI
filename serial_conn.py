@@ -24,12 +24,14 @@ class SerialConn(object):
                 except SerialException as se:
 
                     if self._settings.get("close_on_error", True):
-                        log.warning("Closing serial connection due to error: {:}".format(se))
+                        log.warning(
+                            "Closing serial connection due to error: {:}".format(se))
 
                         try:
                             self.close()
                         except:
-                            log.exception("Failed to close serial connection after error occurred: {:}".format(se))
+                            log.exception(
+                                "Failed to close serial connection after error occurred: {:}".format(se))
 
                     raise
 
@@ -59,7 +61,8 @@ class SerialConn(object):
             self._serial = serial_for_url(settings["url"], do_not_open=True)
             self._serial.timeout = settings["timeout"]
         else:
-            raise ValueError("Either 'device' or 'url' must be specified in settings")
+            raise ValueError(
+                "Either 'device' or 'url' must be specified in settings")
 
         self._settings = settings
 
@@ -71,7 +74,7 @@ class SerialConn(object):
     def open(self):
         log.info("Opening serial connection")
 
-        try :
+        try:
             self._serial.open()
 
             return self
@@ -105,6 +108,8 @@ class SerialConn(object):
         log.debug("TX: %s", repr(data))
 
         if line_terminator:
+            if isinstance(data, bytes):
+                line_terminator = line_terminator.encode()
             data += line_terminator
 
         self._serial.write(data)
@@ -157,12 +162,12 @@ class SerialConn(object):
 
     @Decorators.ensure_open
     def read_until(self, ready_word, error_regex,
-            line_separator="\n",
-            dedicated_ready_line=True,
-            ignore_empty_lines=True,
-            echo_on=True,
-            expect_multi_lines=False,
-            return_command=False):
+                   line_separator="\n",
+                   dedicated_ready_line=True,
+                   ignore_empty_lines=True,
+                   echo_on=True,
+                   expect_multi_lines=False,
+                   return_command=False):
 
         ret = {}
 
@@ -171,7 +176,8 @@ class SerialConn(object):
         while True:
             char = self._serial.read()
             if not char:
-                log.error("Read timeout after waiting %f second(s)", self._serial.timeout)
+                log.error("Read timeout after waiting %f second(s)",
+                          self._serial.timeout)
                 # TODO: Mark timeout occured and next read might be false?
 
                 ret["error"] = "Timeout"
@@ -185,7 +191,7 @@ class SerialConn(object):
 
                 # Break if entire line matches ready word
                 if dedicated_ready_line and line == ready_word:
-                   break
+                    break
 
                 match = error_regex.match(line)
                 if match:
@@ -211,6 +217,7 @@ class SerialConn(object):
             lines = lines[1:]
 
         if lines:
-            ret["data"] = lines[0] if len(lines) == 1 and not expect_multi_lines else lines
+            ret["data"] = lines[0] if len(
+                lines) == 1 and not expect_multi_lines else lines
 
         return ret
