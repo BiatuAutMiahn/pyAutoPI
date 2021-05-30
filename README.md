@@ -12,6 +12,9 @@ More PI less salt.
 [WIP]
   -Free AutoPi-Core source dependencies
   -Make modular
+  
+[Future]
   -STN2120 Firmware Update
   -Tornado-based frontend /w Websocket
+
 ```
