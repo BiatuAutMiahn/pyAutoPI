@@ -24,6 +24,7 @@ class Node(threading.Thread):
         self.status = None
         self.exception = None
         self.name = name
+        self.poll_rate=0.1
     def handle_exception(self,e):
         global logging
         self.status="Exception"
@@ -62,7 +63,7 @@ class Node(threading.Thread):
                 self.module=None
                 break
             elif self.init in [1,2]:
-                time.sleep(0.1)
+                time.sleep(self.poll_rate)
                 continue
             elif self.init==3:
                 try:
@@ -119,7 +120,7 @@ class Node(threading.Thread):
                 if mtime!=self.mtime:
                     self.mtime=mtime
                     self.init=3
-            time.sleep(0.1)
+            time.sleep(self.poll_rate)
         self.status="Terminated"
         logging.info("[%s]:\tNode has been Terminated"%self.name)
 def exit():
@@ -131,7 +132,7 @@ def exit():
         sys.exit()
 logging.basicConfig(format='[%(asctime)s.%(msecs)03d]%(message)s',level=logging.INFO,datefmt="%Y.%m.%d,%H:%M:%S")
 logging.info("[root]:\tInitializing")
-modules={'templ': None,'spm': None,'ec2x': None,'stn': None}
+modules={'templ': None,'spm': None,'ec2x': None,'stn': None,'www': None,'pinger': None}
 atexit.register(exit)
 for m in modules.keys():
     modules[m]=Node(m)
