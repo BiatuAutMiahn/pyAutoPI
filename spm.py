@@ -8,7 +8,6 @@ Magic = "Ez18oj3rfwIZStqG"
 Alias = "spm"
 node=None
 logging=None
-wait=None
 config = {'port': 1, 'address': 8}
 
 def reset():
@@ -42,12 +41,8 @@ def __init__(n,l):
     time.sleep(8)
     logging.info("["+node.name+"]:\tInitialized")
     node.SPM.heartbeat()
-    wait=time.time()
+    node.loop_interval=60
 
 def __loop__(s):
-    global wait
-    global node
-    if (time.time()-wait)>=60:
-        wait=time.time()
-        node.SPM.heartbeat()
-        node.heartbeat+=1
+    node.SPM.heartbeat()
+    node.heartbeat+=1

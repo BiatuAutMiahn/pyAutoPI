@@ -25,6 +25,7 @@ class Node(threading.Thread):
         self.exception = None
         self.name = name
         self.poll_rate=0.1
+        self.loop_interval=0.1
     def handle_exception(self,e):
         global logging
         self.status="Exception"
@@ -51,6 +52,7 @@ class Node(threading.Thread):
         sys.ps1=ps1
     def run(self):
         global logging
+        loop_timer=time.time()
         while True:
             if self.init==0:
                 self.status="Terminating"
@@ -102,6 +104,7 @@ class Node(threading.Thread):
                     logging.info("[%s]:\tInitializing Node"%self.name)
                     self.module.__init__(self,logging)
                     self.init=5
+                    loop_timer=time.time()
                     if not hasattr(self.module,'__loop__'):
                         logging.warning("[%s]:\tNode has no __loop__ method"%self.name)
                 except Exception as e:
@@ -111,7 +114,9 @@ class Node(threading.Thread):
                 try:
                     self.status="Running"
                     if hasattr(self.module,'__loop__'):
-                        self.module.__loop__(self)
+                        if time.time()-loop_timer>=self.loop_interval:
+                            loop_timer=time.time()
+                            self.module.__loop__(self)
                 except Exception as e:
                     self.handle_exception(e)
                 pass
