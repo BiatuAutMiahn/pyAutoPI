@@ -1,5 +1,6 @@
 import time
 import RPi.GPIO as gpio
+from gpio_pin import HOLD_PWR, SPM_RESET
 from i2c_conn import I2CConn
 from spm2_conn import SPM2Conn
 
@@ -9,10 +10,6 @@ node=None
 logging=None
 wait=None
 config = {'port': 1, 'address': 8}
-
-# GPIO PINs
-HOLD_PWR   = 33  # GPIO13
-SPM_RESET  = 37  # GPIO26
 
 def reset():
     logging.info("["+node.name+"]:\tResetting SPM")
