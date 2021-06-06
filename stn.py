@@ -13,8 +13,9 @@ def __init__(n,l):
     logging=l
     node.id=Magic
     node.voltage=None
+    node.loop_interval=1
     node.OBD = obd.OBD(config['device'])
     logging.info("["+node.name+"]:\tInitialized")
 
-def __loop__():
-    pass
+def __loop__(self):
+    node.voltage=node.OBD.query(obd.commands.ELM_VOLTAGE).value.magnitude
