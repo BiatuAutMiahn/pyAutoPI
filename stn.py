@@ -29,7 +29,6 @@ def __init__(n,l):
     node.query=_query
     logging.info("["+node.name+"]:\tInitialized")
 
-
 def __deinit__(self):
     node.OBD.close()
 
