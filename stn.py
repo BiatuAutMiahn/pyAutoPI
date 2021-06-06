@@ -12,5 +12,9 @@ def __init__(n,l):
     node=n
     logging=l
     node.id=Magic
+    node.voltage=None
     node.OBD = obd.OBD(config['device'])
     logging.info("["+node.name+"]:\tInitialized")
+
+def __loop__():
+    pass
