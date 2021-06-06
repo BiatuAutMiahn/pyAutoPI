@@ -140,7 +140,7 @@ def exit():
 logging.basicConfig(format='[%(asctime)s.%(msecs)03d]%(message)s',level=logging.INFO,datefmt="%Y.%m.%d,%H:%M:%S")
 logging.info("[root]:\tInitializing")
 psutil.Process(os.getpid()).nice(-2)
-modules={'templ': None,'spm': None,'ec2x': None,'stn': None,'www': None,'pinger': None}
+modules={'templ': None,'spm': None,'qmi': None,'stn': None,'www': None,'pinger': None}
 atexit.register(exit)
 for m in modules.keys():
     modules[m]=Node(m)

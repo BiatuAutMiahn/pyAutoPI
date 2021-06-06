@@ -16,6 +16,7 @@ def _query(**kwargs):
 def __init__(n,l):
     global node
     global logging
+    global config
     node=n
     logging=l
     node.id=Magic
