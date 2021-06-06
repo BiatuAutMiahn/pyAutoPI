@@ -1,0 +1,3 @@
+[submodule "autopi-core"]
+	path = autopi-core
+	url = https://github.com/autopi-io/autopi-core
