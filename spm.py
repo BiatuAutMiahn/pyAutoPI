@@ -29,6 +29,7 @@ def __init__(n,l):
     logging=l
     node.id=Magic
     node.heartbeat=0
+    node.config=config
     node.SPM=SPM2Conn()
     gpio.setwarnings(False)
     gpio.setmode(gpio.BOARD)

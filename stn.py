@@ -27,6 +27,7 @@ def __init__(n,l):
     node.OBD = obd.OBD(config['device'])
     node.lock=False
     node.query=_query
+    node.config=config
     logging.info("["+node.name+"]:\tInitialized")
 
 def __deinit__(self):
