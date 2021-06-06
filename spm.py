@@ -1,3 +1,5 @@
+import time
+
 Magic = "Ez18oj3rfwIZStqG"
 Alias = "spm"
 node=None

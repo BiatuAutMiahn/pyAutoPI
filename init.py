@@ -29,7 +29,7 @@ class Node(threading.Thread):
         global logging
         self.status="Exception"
         self.exception="".join(traceback.TracebackException.from_exception(e).format())
-        logging.info("[%s]:\tNode encountered an Exception"%self.name)
+        logging.error("[%s]:\tNode encountered an Exception:\n%s"%(self.name,self.exception))
         self.init=1
     def suspend(self):
         global logging
