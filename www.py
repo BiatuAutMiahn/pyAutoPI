@@ -1,5 +1,5 @@
-Magic = "ftbOsM6KwAn98Y58"
-Alias = "ec2x"
+Magic = "9TW543hmzbbBQXKL"
+Alias = "www"
 node=None
 logging=None
 

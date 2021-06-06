@@ -1,6 +1,3 @@
-import time
-
-# class Node(object):
 Magic = "5KZMmWv2XOnD4BKD"
 Alias = "stn"
 node=None

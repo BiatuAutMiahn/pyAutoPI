@@ -1,5 +1,5 @@
-Magic = "ftbOsM6KwAn98Y58"
-Alias = "ec2x"
+Magic = "tKjCwbC624mPy2J4"
+Alias = "pinger"
 node=None
 logging=None
 
