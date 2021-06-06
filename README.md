@@ -1,5 +1,5 @@
 # pyAutoPI
-More PI less salt.
+More Py less Salt.
 
 ```
 [Features]
