@@ -11,6 +11,8 @@ import sys
 import readline
 import rlcompleter
 import atexit
+import psutil
+
 def genid():
     return ''.join(random.choice(string.ascii_uppercase + string.ascii_lowercase + string.digits) for _ in range(16))
 class Node(threading.Thread):
