@@ -1,5 +1,8 @@
+import serial
+import time
+
 Magic = "ftbOsM6KwAn98Y58"
-Alias = "ec2x"
+Alias = "qmi"
 node=None
 logging=None
 config = {
@@ -25,4 +28,12 @@ def __init__(n,l):
     logging=l
     node.id=Magic
     node.config=config
+    node.Serial=serial.Serial(port=config['device'],baudrate=config["baudrate"],timeout=config["timeout"])
+    # node.Serial.port=config['device']
+    if node.Serial.is_open:
+        node.Serial.close()
+    node.Serial.open()
+    for c in config['init']:
+        node.Serial.write((c+'\r').encode())
+        time.sleep(0.1)
     logging.info("["+node.name+"]:\tInitialized")

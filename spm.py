@@ -43,7 +43,7 @@ def __init__(n,l):
     time.sleep(8)
     logging.info("["+node.name+"]:\tInitialized")
     node.SPM.heartbeat()
-    node.loop_interval=60
+    node.loop_interval=10
 
 def __loop__(s):
     node.SPM.heartbeat()
